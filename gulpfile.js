@@ -4,6 +4,7 @@ var gulp = require('gulp');
 // Include Our Plugins
 var jshint = require('gulp-jshint');
 var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 
 // Lint Task
@@ -17,6 +18,7 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
     return gulp.src('scss/*.scss')
         .pipe(sass())
+        .pipe(concat('style.css'))
         .pipe(gulp.dest('public/stylesheets'));
 });
 
@@ -28,7 +30,7 @@ gulp.task('watch', function() {
 gulp.task('nodemon', function (cb) {
   var started = false;
   return nodemon({
-    script: 'app.js'
+    script: 'bin/www'
   }).on('start', function () {
     // to avoid nodemon being started multiple times
     // thanks @matthisk

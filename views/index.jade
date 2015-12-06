@@ -1,6 +1,26 @@
 extends layout
 
+block hero-unit
+  .jumbotron
+    .container
+      h1 Soon Survey
+
 block content
-  h1= title
-  p Welcome to #{title}
-  h3 이건 Deploy Test를 위한 거임!
+  .container
+    .row
+      .col-md-6
+        h3 목적
+        p 설문조사
+      .col-md-6
+        h3 주요 기능
+        ul
+          li 회원가입
+          li 설문조사 만들기
+          
+
+extends layout
+
+//- block content
+//-   h1= title
+//-   p Welcome to #{title}
+//-   a(href='/posts') 설문조사 게시판

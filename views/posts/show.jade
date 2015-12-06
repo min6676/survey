@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  h1= post.title
+  h3 by #{post.email}
+  .well= post.content
+  
+  hr
+  h3 question (#{post.numQuestion})
+  table.table
+    tr
+      th email
+      th content
+      th time
+    each question in questions
+      tr
+        td= question.email
+        td= question.content
+        td= moment(question.createdAt).format('YYYY/MM/DD')
+  
+  form.form-inline(action='/posts/' + post._id + '/questions', method='POST')
+    .form-group
+      label.sr-only(for='email') email
+      input.form-control(name='email', placeholder='email')
+    .form-group
+      label.sr-only(for='content') content
+      input.form-control(name='content', size=50, placeholder='content')
+    button.btn.btn-info 설문저장
+    
+  hr
+  a.btn.btn-default(href='/posts') 목록 
+  
