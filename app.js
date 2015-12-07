@@ -51,6 +51,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, '/bower_components')));
 app.use(methodOverride('_method', {methods: ['POST', 'GET']}))
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/posts', posts);
 app.use('/users', users);
