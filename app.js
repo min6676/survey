@@ -41,10 +41,10 @@ var MongoStore = require('connect-mongo')(session);
 app.sessionStore = new MongoStore({mongooseConnection: mongoose.connection});
 app.use(session({
   resave: true,
-  key: 'express.sid',
+  //key: 'express.sid',
   saveUninitialized: true,
   secret: 'long-long-long-secret-string-1313513tefgwdsvbjkvasd',
-  store: app.sessionStore
+  //store: app.sessionStore
 }));
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
