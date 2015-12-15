@@ -3,40 +3,84 @@ extends ../layout
 block content
   .container
     h1= post.title
-    h3 by #{post.email}
+    h3= post.createdAt
     .well= post.content
-  
-    hr
-    h3 question (#{post.numQuestion})
-    table.table
-      tr
-        th 질문번호
-        th 질문
-        th 답변
-        th 작성자
-        th time
-      each question in questions
-        tr
-          td= question.number
-          td= question.question
-          td= question.response
-          td= question.taker
-          td= moment(question.createdAt).format('YYYY/MM/DD')
-    
-    form.form-inline(action='/posts/' + post._id + '/questions', method='POST')
+    br
+    h3 객관식 추가
+    form.form(action='/posts/' + post._id + '/questions', method='POST')
+      hr
+      h3 질문
       .form-group
-        label.sr-only(for='question') question
-        input.form-control(name='question', size=50, placeholder='question')
+        label.sr-only(for='content') content
+        input.form-control(name='content', size=40, placeholder='Question details')
+        input.form-control(name='type', type='hidden', value='객관식')
+      h3 선택지
       .form-group
-        label.sr-only(for='response') response
-        input.form-control(name='response', size=30, placeholder='response')
-      .form-group
-        select#option
-          option(value="multiple")객관식
-          option(value="short")단일입력
-          option(value="essay")의견
-      button.btn.btn-info 설문저장
+        label.sr-only(for='item') item
+        input.form-control(name='item1', size=50, placeholder='item1 details')
+        input.form-control(name='item2', size=50, placeholder='item2 details')
+        input.form-control(name='item3', size=50, placeholder='item3 details')
+        input.form-control(name='item4', size=50, placeholder='item4 details')
+        button.btn.btn-info 저장
       
+    h3 주관식 추가
+      hr
+      h3 질문
+      form.form(action='/posts/' + post._id + '/questions', method='POST')
+        .form-group
+          label.sr-only(for='content') content
+          input.form-control(name='content', size=40, placeholder='Question details')
+          input.form-control(name='type', type='hidden', value='주관식')
+          p
+          button.btn.btn-info 저장
+        
+    br
+    h3 의견 추가
     hr
-    a.btn.btn-default(href='/posts') 목록 
+    h3 질문
+    form.form(action='/posts/' + post._id + '/questions', method='POST')
+      .form-group
+        label.sr-only(for='content') content
+        input.form-control(name='content', size=40, placeholder='Question')
+        input.form-control(name='type', type='hidden', value='의견')
+        button.btn.btn-info 저장 
+    
+    h3 질문 목록 (#{post.numQuestion})
+    br
+    ul#set.list-unstyled
+      each question in questions
+        li
+          b Qustion. #{question.number} #{question.type}
+          p=question.content
+          if question.type === '주관식'
+            .form-inline
+              input.form-control(name='answer', size=40, placeholder='answer here') 
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}/edit') 수정 
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}?_method=DELETE') 삭제
+          if question.type === '의견'
+            .form-group
+              textarea.form-control(name='answer', rows=2 placeholder='answer here') 
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}/edit') 수정 
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}?_method=DELETE') 삭제
+          if question.type === '객관식'
+            .radio
+              label
+                input(type='radio', name='item', value=question.item[0].item1) 
+                span #{question.item[0].item1}
+            .radio
+              label
+                input(type='radio', name='item', value=question.item[0].item2)
+                span #{question.item[0].item2}
+            .radio
+              label
+                input(type='radio', name='item', value=question.item[0].item3)
+                span #{question.item[0].item3}
+            .radio
+              label
+                input(type='radio', name='item', value=question.item[0].item4) 
+                span #{question.item[0].item4}
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}/edit') 수정 
+            a#q_button.btn.btn-xs.btn-default(href='/posts/question/#{question._id}?_method=DELETE') 삭제
+    a.btn.btn-default(href='/posts') 목록  
+
   

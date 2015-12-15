@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .container
+    if question.type==='주관식'  
+      h1.page-header 주관식 질문 수정
+      form(action='/posts/question/#{question._id}?_method=PUT', method='POST')
+        .form-group
+          label(for='content') 질문
+          input.form-control(type='text', id='content', name='content', placeholder='Question details', value=question.content)
+          
+        div.form-actions
+          a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+          | 
+          button.btn.btn-primary(type='submit') 수정
+    if question.type==='객관식'  
+      h1.page-header 객관식 질문 수정
+      form(action='/posts/question/#{question._id}?_method=PUT', method='POST')
+        .form-group
+          label(for='content') 질문
+          input.form-control(type='text', id='content', name='content', placeholder='Question details', value=question.content)
+        .form-group
+          label(for='item') 선택지
+          input.form-control(type='text', id='item1', name='item1', placeholder='item1 details', value=question.item[0].item1)
+          input.form-control(type='text', id='item2', name='item2', placeholder='item2 details', value=question.item[0].item2)
+          input.form-control(type='text', id='item3', name='item3', placeholder='item3 details', value=question.item[0].item3)
+          input.form-control(type='text', id='item4', name='item4', placeholder='item4 details', value=question.item[0].item4)
+        div.form-actions
+          a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+          | 
+          button.btn.btn-primary(type='submit') 수정
+    if question.type==='의견'  
+      h1.page-header 의견 수정
+      form(action='/posts/question/#{question._id}?_method=PUT', method='POST')
+        .form-group
+          label(for='content') 질문
+          input.form-control(type='text', id='content', name='content', placeholder='Question details', value=question.content)
+          
+        div.form-actions
+          a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+          | 
+          button.btn.btn-primary(type='submit') 수정
