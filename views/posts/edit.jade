@@ -6,9 +6,6 @@ block content
   
     form(action="/posts/#{post/id}?_method=PUT", method='POST')
       .form-group
-        label(for='email') 이메일
-        input.form-control(type='email', name='email', id='email', placeholder='Email', value=post.email)
-      .form-group
         label(for='title') 제목
         input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title)
       .form-group
